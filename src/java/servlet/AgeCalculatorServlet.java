@@ -27,6 +27,8 @@ public class AgeCalculatorServlet extends HttpServlet
         String number = request.getParameter("number");
         String regex = "[0-9]";
         
+        request.setAttribute("number", number);
+        
         if(number == null || number.equals(""))
         {
             request.setAttribute("message", "You must give your current age");

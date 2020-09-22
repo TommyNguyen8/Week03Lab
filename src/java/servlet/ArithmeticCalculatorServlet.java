@@ -26,6 +26,33 @@ public class ArithmeticCalculatorServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
+        String first = request.getParameter("first");
+        String second = request.getParameter("second");
+        String calc = request.getParameter("calc");
+        String regex = "[0-9]";
         
+        request.setAttribute("first", first);
+        request.setAttribute("second", second);
+        
+        if(first == null || first.equals("") || second == null || second.equals(""))
+        {
+           request.setAttribute("message", "invalid");
+           
+           getServletContext().getRequestDispatcher("/WEB-INF/arithmeticcalculator.jsp")
+                   .forward(request, response);
+           return;
+        }
+        
+        if(!first.matches(regex) || !second.matches(regex))
+        {
+            request.setAttribute("message", "Invalid");
+            
+            getServletContext().getRequestDispatcher("/WEB-INF/arithmeticcalculator.jsp")
+                    .forward(request, response);
+            return;
+        }
+        
+        getServletContext().getRequestDispatcher("/WEB-INF/arithmeticcalculator.jsp")
+                .forward(request, response);
     }
 }
