@@ -52,6 +52,38 @@ public class ArithmeticCalculatorServlet extends HttpServlet
             return;
         }
         
+        int num1 = Integer.parseInt(first);
+        int num2 = Integer.parseInt(second);
+        int total = 0;
+        
+        if(calc.equals("+"))
+        {
+            total = num1 + num2;
+        }
+        else if(calc.equals("-"))
+        {
+            total = num1 - num2;
+        }
+        else if(calc.equals("*"))
+        {
+            total = num1 * num2;
+        }
+        else if(calc.equals("%"))
+        {
+            if(num2 == 0)
+            {
+                request.setAttribute("message", "Invalid. Cannot divide by 0");
+                
+                getServletContext().getRequestDispatcher("/WEB-INF/arithmeticcalculator.jsp")
+                        .forward(request, response);
+                return;
+            }
+            
+            total = num1 / num2;
+        }
+        
+        request.setAttribute("message", total);
+        
         getServletContext().getRequestDispatcher("/WEB-INF/arithmeticcalculator.jsp")
                 .forward(request, response);
     }
